@@ -1,4 +1,5 @@
 from event import Event
+from weakmethod import WeakMethod
 import eventhandler
 
 class ListenObj(object):
@@ -19,7 +20,9 @@ class ListenObj(object):
 		
 		obj.sub_to("click", self.foo)
 		"""
-		self._listening_for[msg] = Event(args)
+		self._listening_for[msg] = Event()
+		for arg in args:
+			self._listening_for[msg].append(WeakMethod(self, arg))
 		eventhandler._handler._add_listener(self, msg)
 	
 	def unsub(self, msg):

@@ -14,6 +14,6 @@ class Event(list):
 		"""
 		for func in self:
 			func(*args, **kwargs)
-	
+
 	def __repr__(self):
 		return "Event({})".format(list.__repr__(self))
