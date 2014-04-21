@@ -26,7 +26,8 @@ class Satellite(dict):
 	def _add_listener(self, listener, msg):
 		if msg not in self:
 			self[msg] = []
-		self[msg].append(ref(listener))
+		if listener not in self[msg]:
+			self[msg].append(ref(listener))
 
 	def _rm_listener(self, listener, msg):
 		if msg in self:
