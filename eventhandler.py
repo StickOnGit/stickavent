@@ -26,13 +26,16 @@ class Satellite(dict):
 	def _add_listener(self, listener, msg):
 		if msg not in self:
 			self[msg] = []
-		if listener not in self[msg]:
+		#if listener not in self[msg]:
+		if not filter(lambda x: x() == listener, self[msg]):
 			self[msg].append(ref(listener))
 
 	def _rm_listener(self, listener, msg):
 		if msg in self:
-			if listener in self[msg]:
-				self[msg].remove(listener)
+			#if listener in self[msg]:
+			listenRef = filter(lambda x: x() == listener, self[msg])
+			if listenRef:
+				self[msg].remove(listenRef[0])
 			if not self[msg]:
 				del self[msg]
 
